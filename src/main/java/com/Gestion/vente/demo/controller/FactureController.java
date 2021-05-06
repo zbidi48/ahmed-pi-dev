@@ -28,6 +28,7 @@ import com.Gestion.vente.demo.Entities.Client;
 import com.Gestion.vente.demo.Entities.Commande;
 import com.Gestion.vente.demo.Entities.Product;
 import com.Gestion.vente.demo.Model.CommandeAjoutModel;
+import com.Gestion.vente.demo.Model.FactureSearch;
 import com.Gestion.vente.demo.Model.ProduitAjoutModel;
 import com.Gestion.vente.demo.Model.factureajoutmodel;
 import com.Gestion.vente.demo.services.ClientService;
@@ -69,37 +70,40 @@ public class FactureController {
 	
 	}	
 	 @PostMapping("/update/{id}")
-	 public void modiferfacture(@PathVariable(value ="id") Long id, @Validated @RequestBody factureajoutmodel f )
+	 public void modiferfacture(@PathVariable(value ="id") Long id,  @RequestBody factureajoutmodel f )
 	 {
 
 
 		 Bills facture= this.factureService.getFacturereprository().findById(id).get();
 		 facture.setAmount(f.getAmount());
 		 facture.setType(f.getType());
-		 
+		 this.factureService.getFacturereprository().save(facture);
 
 	 }
 	@GetMapping("/delete/{id}")
-	private void deletefacture(@Validated @PathVariable(value="id") long id )
+	private void deletefacture( @PathVariable(value="id") long id )
 	{
 		this.factureService.getFacturereprository().delete((this.factureService.getFacturereprository().findById(id).get()));
 	}
-	@GetMapping("/list/filter/{idclient}")
-	public List<Bills> getfacturelistParclient(@PathVariable(value ="idclient") long idclient)
+	@PostMapping("/list/filter")
+	public List<Bills> getfacturelistParclient(@RequestBody FactureSearch f)
 	{
 		List<Bills> res =new ArrayList<Bills>();
 		
-		List<Bills> dbbills= this.factureService.getFacturereprository().findAll();
+		List<Bills> dbbills= this.factureService.getFacturereprository().trierfactureordercroissant();
 		
 		for(Bills b :dbbills)
 		{
-			if(b.getClient().getId()==idclient)
+			if(b.getClient().getId()==f.getIdClient())
 		
-				res.add(b);
+				if(b.getType().equals(f.getTypeFacture()))
+				{
+					res.add(b);
+				}
 			}
 		
 		return res;
-		}
+	}
          
 		
 		

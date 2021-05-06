@@ -35,7 +35,7 @@ public class ProductController  {
 		return  this.produitService.getProduitRepository().findAll();
 	}
 	@PostMapping("/add")
-	private ResponseController addNewProduit(@Validated @RequestBody ProduitAjoutModel p ) {
+	private ResponseController addNewProduit( @RequestBody ProduitAjoutModel p ) {
 		
 			Product produit = new Product();
 			ResponseController res = new ResponseController();

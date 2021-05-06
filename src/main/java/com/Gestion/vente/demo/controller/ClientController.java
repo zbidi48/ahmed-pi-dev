@@ -37,7 +37,7 @@ public List<Client> getClientslist()
 	return this.clientsevice.getClientrepository().findAll();
 }
 @PostMapping("/add")
-private ResponseController addNewclient(@Validated @RequestBody ClientAjoutModel c ) {
+private ResponseController addNewclient( @RequestBody ClientAjoutModel c ) {
 	Client client = new Client();
 	
 	if(c.getFirstname().length()>1 && c.getLastname().length()>1 && 8<c.getPsw().length() && c.getPsw().length()<16 )

@@ -1,6 +1,7 @@
 package com.Gestion.vente.demo.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -52,10 +53,32 @@ public class CategorieController {
 
 		 Categuorie cat =  this.categorieservice.getCategorierepository().findById(id).get();
 
-		cat.setId(cat.getId());
-		cat.setName(cat.getName());
+	
+		cat.setName(c.getName());
+		cat.setDescription(c.getDescription());
 		 this.categorieservice.getCategorierepository().save(cat);
 
+	 }
+	 @GetMapping("/detailcategorie/{id}")
+	 public Categuorie afficherdetailcategorie(@PathVariable(value ="id") Long id)
+	 {
+	
+		Categuorie cat = new Categuorie();
+		try
+		{
+			
+			cat = this.categorieservice.getCategorierepository().findById(id).get(); 
+		}
+		catch(NoSuchElementException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		catch(Exception e)
+		{
+			
+		}
+		
+		return cat;
 	 }
 	 
 }

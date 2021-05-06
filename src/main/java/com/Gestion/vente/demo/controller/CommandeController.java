@@ -62,8 +62,8 @@ public class CommandeController {
 		return res;
 	}
 	
-	@GetMapping("/list/filtrage/{idp}")
-	public List<Commande> getcommandelistParProduit(@PathVariable(value ="idp") Long idp)
+	@GetMapping("/list/filtrage/{idprod}")
+	public List<Commande> getcommandelistParProduit(@PathVariable(value ="idprod") Long idp)
 	{
 		List<Commande> res =new ArrayList<Commande>();
 		List<Commande> bdcommnde =this.commandeservice.getCommanderepository().findAll();
@@ -84,7 +84,7 @@ public class CommandeController {
 	
 	
 	@PostMapping("/add")
-	private void addnewcmd(@Validated @RequestBody CommandeAjoutModel cmd )
+	private void addnewcmd( @RequestBody CommandeAjoutModel cmd )
 	{
 		Commande commande = new Commande();
 		
@@ -109,7 +109,7 @@ public class CommandeController {
 	 }
 
 	 @PostMapping("/update/{id}")
-	 public void modiferProduit(@PathVariable(value ="id") Long id, @Validated @RequestBody CommandeAjoutModel cmd ){
+	 public void modiferProduit(@PathVariable(value ="id") Long id, @RequestBody CommandeAjoutModel cmd ){
 
 		Commande commande =  this.commandeservice.getCommanderepository().findById(id).get();
 
