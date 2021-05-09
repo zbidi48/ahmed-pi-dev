@@ -19,6 +19,21 @@ public class Product {
 	@Column(name = "date", nullable = false)
 	private String date;
 	
+	@Column(name = "photoURL", nullable = true)
+	private String photoURL;
+	
+	
+	
+	public String getPhotoURL() {
+		return photoURL;
+	}
+
+
+	public void setPhotoURL(String photoURL) {
+		this.photoURL = photoURL;
+	}
+
+
 	@ManyToOne()
 	@JoinColumn( name="categories_id" )
 	private Categuorie categuorie;

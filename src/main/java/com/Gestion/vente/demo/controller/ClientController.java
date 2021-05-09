@@ -49,7 +49,7 @@ private ResponseController addNewclient( @RequestBody ClientAjoutModel c ) {
 		client.setPsw(c.getPsw());
 		
 		this.clientsevice.getClientrepository().save(client);
-		return new ResponseController("cleint ajouter avec succe",true);
+		return new ResponseController("client ajouter avec succe",true);
 		
 	}
 	else

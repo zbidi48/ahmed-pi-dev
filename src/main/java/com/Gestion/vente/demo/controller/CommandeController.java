@@ -43,18 +43,24 @@ public class CommandeController {
 	}
 	
 	
-	@GetMapping("/list/filter/{idtypep}")
-	public List<Commande> getcommandelist(@PathVariable(value ="idtypep") Long idtypep)
+	@GetMapping("/list/filter/{idtypep}/{idclient}")
+	public List<Commande> getcommandelist(@PathVariable(value ="idtypep") Long idtypep,@PathVariable(value ="idclient") Long idclient)
 	{
 		List<Commande> res =new ArrayList<Commande>();
 		List<Commande> bdcommnde =this.commandeservice.getCommanderepository().findAll();
 		
 		
+
 		
 		for(Commande c:bdcommnde) {
-			if( c.getMethodepay().getId() ==  idtypep) {
-				res.add(c);
+			if( c.getClient().getId() ==  idclient) {
+				
+				if( c.getMethodepay().getId() ==  idtypep) {
+					res.add(c);
+					
+				}
 			}
+			
 		}
 		
 		
@@ -62,24 +68,7 @@ public class CommandeController {
 		return res;
 	}
 	
-	@GetMapping("/list/filtrage/{idprod}")
-	public List<Commande> getcommandelistParProduit(@PathVariable(value ="idprod") Long idp)
-	{
-		List<Commande> res =new ArrayList<Commande>();
-		List<Commande> bdcommnde =this.commandeservice.getCommanderepository().findAll();
-		
-		
-		
-		for(Commande c:bdcommnde) {
-			if( c.getProduit().getIdProduct() ==  idp) {
-				res.add(c);
-			}
-		}
-		
-		
-		
-		return res;
-	}
+
 	
 	
 	
