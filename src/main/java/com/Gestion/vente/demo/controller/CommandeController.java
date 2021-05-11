@@ -81,9 +81,8 @@ public class CommandeController {
 		commande.setClient(this.clientservice.getClientrepository().findById(cmd.getIdclient()).get());
 		commande.setProduit(this.produitservice.getProduitRepository().findById(cmd.getIdproduit()).get());
 		commande.setMethodepay( this.commandeservice.getMethodeofpayRepository().findById(cmd.getIdpayementtype()).get() );
-	  
 		
-		
+	
 		long m = System.currentTimeMillis();
 		
 		 commande.setDatecomande( new Date(m) );
